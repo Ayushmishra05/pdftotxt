@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Upload</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Upload PDF File</h3>
+                    </div>
+                    <div class="card-body">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-info">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Choose PDF file</label>
+                                <input type="file" class="form-control" id="file" name="file" accept=".pdf">
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" type="submit">Upload</button>
+                            </div>
+                        </form>
+                        
+                        {% if results %}
+                            <div class="mt-4">
+                                <h4>Processed Results:</h4>
+                                {% for result in results %}
+                                    <div class="card mt-3">
+                                        <div class="card-header">
+                                            {{ result.filename }}
+                                        </div>
+                                        <div class="card-body">
+                                            <pre class="text-wrap">{{ result.text }}</pre>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
